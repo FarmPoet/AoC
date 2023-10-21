@@ -1,0 +1,1 @@
+sum(map(lambda y: 1 if y == '(' else -1, open('1.txt').read()[:]))

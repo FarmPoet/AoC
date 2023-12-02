@@ -1,15 +1,10 @@
 import re
 
-bag = [12, 13, 14]
-d = open("i2.txt").read().split("\n")[:-1]
-p = [0, 0, 0]
+def fetch(l, col): return([int(max(list(map(int, re.findall("(\d+) " + col[i], l))))) for i in range(3)])
 
-for l in d:
-    p[0] += 1
-    r = int(max(list(map(int, re.findall("(\d+) r", l))), default = 0))
-    g = int(max(list(map(int, re.findall("(\d+) g", l))), default = 0))
-    b = int(max(list(map(int, re.findall("(\d+) b", l))), default = 0))
-    if r <= bag[0] and g <= bag[1] and b <= bag[2]: p[1] += p[0]
-    p[2] += r * g * b
-
-p[1:]
+d = open("i2.txt").read().split("\n")[:-1]; p = [0, 0]
+for i in range(len(d)):
+    z = fetch(d[i], ['r', 'g', 'b'])
+    if all(x <= y for x, y in zip(z, [12, 13, 14])): p[0] += i + 1
+    p[1] += (lambda r, g, b: r * g * b)(*z)
+p
